@@ -1,0 +1,7 @@
+# local wiring / junctions (recreated by install.ps1)
+.claude/
+
+# never commit keys or env
+.env
+.env.local
+*.local

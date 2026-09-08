@@ -1,0 +1,6 @@
+{
+  "name": "app-builder-id",
+  "version": "0.1.0",
+  "description": "Build app A,B,C,D ala PPOB - discovery to scaffolding, Stitch + DBML + Mermaid",
+  "skills": "./skills"
+}
