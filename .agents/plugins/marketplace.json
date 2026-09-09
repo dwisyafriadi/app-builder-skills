@@ -1,0 +1,20 @@
+{
+  "name": "app-builder-id-marketplace",
+  "interface": {
+    "displayName": "App Builder ID"
+  },
+  "plugins": [
+    {
+      "name": "app-builder-id",
+      "source": {
+        "source": "local",
+        "path": "./"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

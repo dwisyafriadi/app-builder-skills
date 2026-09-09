@@ -1,0 +1,16 @@
+{
+  "name": "app-builder-id-marketplace",
+  "metadata": {
+    "description": "Skill pengembangan aplikasi berbahasa Indonesia untuk Claude Code."
+  },
+  "owner": {
+    "name": "dwisyafriadi"
+  },
+  "plugins": [
+    {
+      "name": "app-builder-id",
+      "source": "./",
+      "description": "Skill pengembangan aplikasi berbahasa Indonesia."
+    }
+  ]
+}

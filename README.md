@@ -35,6 +35,10 @@ Ini file instruksi, bukan runtime yang menjalankan dirinya sendiri. Semua folder
 
 ## Instalasi
 
+Untuk pemasangan melalui marketplace Claude Code/Codex, konfigurasi JSON
+OpenCode, dan cara menerbitkan pembaruan, lihat [panduan integrasi](integrations/README.md).
+Installer manual di bawah tetap tersedia sebagai alternatif.
+
 Windows, dari repository ini:
 
 ```powershell
@@ -92,6 +96,6 @@ Subagent hanya untuk tugas independen dengan kontrak dan pemilik file jelas; def
 
 Lihat [skenario evaluasi](evals/scenarios.md) dan [kontribusi](CONTRIBUTING.md). Validasi format tidak membuktikan skill otomatis terpicu atau aplikasi berhasil dibangun. Uji perilaku pada sesi host aktual dan catat pertanyaan, keberhasilan, waktu, rework, serta biaya.
 
-Referensi pendekatan:
+<!-- Referensi pendekatan:
 - [Superpowers](https://github.com/obra/superpowers): rencana, delegasi, review, verifikasi.
-- [Karpathy-inspired guidelines](https://github.com/multica-ai/andrej-karpathy-skills): kesederhanaan, perubahan terarah, tujuan terverifikasi.
+- [Karpathy-inspired guidelines](https://github.com/multica-ai/andrej-karpathy-skills): kesederhanaan, perubahan terarah, tujuan terverifikasi. -->

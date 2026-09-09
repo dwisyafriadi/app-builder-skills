@@ -1,0 +1,26 @@
+{
+  "name": "app-builder-id",
+  "version": "0.2.0",
+  "description": "Skill berbahasa Indonesia untuk membangun aplikasi, menambah fitur, dan memperbaiki bug sesuai konteks repository.",
+  "author": {
+    "name": "dwisyafriadi",
+    "url": "https://github.com/dwisyafriadi"
+  },
+  "homepage": "https://github.com/dwisyafriadi/ppob-skills-agent#readme",
+  "repository": "https://github.com/dwisyafriadi/ppob-skills-agent",
+  "keywords": ["indonesian", "app-builder", "skills", "development"],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "App Builder ID",
+    "shortDescription": "Bangun dan perbaiki aplikasi dalam bahasa Indonesia.",
+    "longDescription": "Pengarah adaptif untuk discovery, fitur, flow dan ERD Mermaid, UI, implementasi, serta verifikasi sesuai dampak perubahan.",
+    "developerName": "dwisyafriadi",
+    "category": "Productivity",
+    "capabilities": [],
+    "defaultPrompt": [
+      "Gunakan app-builder-id untuk membangun MVP saya.",
+      "Gunakan app-builder-id untuk menambahkan fitur.",
+      "Gunakan app-builder-id untuk memperbaiki bug."
+    ]
+  }
+}

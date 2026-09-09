@@ -1,6 +1,13 @@
 {
   "name": "app-builder-id",
-  "version": "0.1.0",
-  "description": "Build app A,B,C,D ala PPOB - discovery to scaffolding, Stitch + DBML + Mermaid",
-  "skills": "./skills"
+  "version": "0.2.0",
+  "description": "Skill berbahasa Indonesia untuk membangun aplikasi, menambah fitur, dan memperbaiki bug sesuai konteks repository.",
+  "author": {
+    "name": "dwisyafriadi",
+    "url": "https://github.com/dwisyafriadi"
+  },
+  "homepage": "https://github.com/dwisyafriadi/ppob-skills-agent#readme",
+  "repository": "https://github.com/dwisyafriadi/ppob-skills-agent",
+  "keywords": ["indonesian", "app-builder", "skills", "development"],
+  "skills": "./skills/"
 }

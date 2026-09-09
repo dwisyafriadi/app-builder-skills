@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": ["~/app-builder-id/skills"]
+  },
+  "command": {
+    "app-builder-id": {
+      "description": "Bangun aplikasi, tambah fitur, atau perbaiki bug dengan App Builder ID",
+      "template": "Muat skill app-builder-id dan ikuti referensi yang relevan untuk permintaan ini: $ARGUMENTS"
+    }
+  }
+}
