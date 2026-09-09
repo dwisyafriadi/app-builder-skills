@@ -35,9 +35,104 @@ Ini file instruksi, bukan runtime yang menjalankan dirinya sendiri. Semua folder
 
 ## Instalasi
 
-Untuk pemasangan melalui marketplace Claude Code/Codex, konfigurasi JSON
-OpenCode, dan cara menerbitkan pembaruan, lihat [panduan integrasi](integrations/README.md).
-Installer manual di bawah tetap tersedia sebagai alternatif.
+Pilih alat yang digunakan di bawah. Setelah pemasangan atau update, buka sesi
+baru dan pastikan App Builder ID terlihat di daftar plugin/skill.
+Instalasi membuat skill tersedia; pemilihan otomatis mengikuti kemampuan host.
+
+## Claude Code
+
+Jalankan di Claude Code:
+
+```text
+/plugin marketplace add dwisyafriadi/app-builder-skills
+/plugin install app-builder-id@app-builder-id-marketplace
+```
+
+Panggil pengarah:
+
+```text
+/app-builder-id:app-builder-id Tambahkan fitur wishlist.
+```
+
+Untuk memperbarui:
+
+```text
+/plugin marketplace update app-builder-id-marketplace
+/plugin update app-builder-id@app-builder-id-marketplace
+```
+
+Mulai sesi baru setelah update. Hindari memasang skill yang sama sekaligus
+melalui junction `.claude/skills` dan plugin.
+
+## Codex
+
+Gunakan versi Codex yang menyediakan `codex plugin`:
+
+```sh
+codex plugin marketplace add dwisyafriadi/app-builder-skills
+codex plugin add app-builder-id@app-builder-id-marketplace
+```
+
+Untuk memperbarui marketplace Git dan memasang ulang versi terbaru:
+
+```sh
+codex plugin marketplace upgrade app-builder-id-marketplace
+codex plugin add app-builder-id@app-builder-id-marketplace
+```
+
+Buka thread baru, lalu pilih skill App Builder ID atau minta:
+
+```text
+Gunakan app-builder-id untuk memperbaiki bug login.
+```
+
+## OpenCode
+
+Clone repository satu kali. Perintah ini dapat digunakan di PowerShell maupun
+shell macOS/Linux:
+
+```sh
+git clone https://github.com/dwisyafriadi/app-builder-skills.git "$HOME/app-builder-id"
+```
+
+Gabungkan [konfigurasi integrasi OpenCode](integrations/opencode.json) berikut
+ke `~/.config/opencode/opencode.json`. Jika belum ada, buat file tersebut.
+Pertahankan pengaturan existing dan sesuaikan `skills.paths` jika lokasi clone berbeda.
+
+```json
+{
+  "$schema": "https://opencode.ai/config.json",
+  "skills": {
+    "paths": ["~/app-builder-id/skills"]
+  },
+  "command": {
+    "app-builder-id": {
+      "description": "Bangun aplikasi, tambah fitur, atau perbaiki bug dengan App Builder ID",
+      "template": "Muat skill app-builder-id dan ikuti referensi yang relevan untuk permintaan ini: $ARGUMENTS"
+    }
+  }
+}
+```
+
+Restart OpenCode, lalu panggil:
+
+```text
+/app-builder-id Tambahkan fitur wishlist.
+```
+
+Untuk memperbarui skill:
+
+```sh
+git -C "$HOME/app-builder-id" pull --ff-only
+```
+
+Restart OpenCode setelah update. Jika konfigurasi integrasi berubah, gabungkan
+perubahan JSON tersebut juga. Integrasi ini menggunakan discovery skill OpenCode
+dan tidak membutuhkan paket npm.
+
+## Instalasi manual
+
+Installer berikut tersedia sebagai alternatif pemasangan marketplace.
 
 Windows, dari repository ini:
 
@@ -79,6 +174,18 @@ Untuk membangun aplikasi, menambah fitur, dan memperbaiki bug, gunakan
 app-builder-id sebagai pengarah jika tersedia. Baca konteks dahulu dan
 pilih tahap sesuai dampak. Perubahan kecil tidak memerlukan blueprint lengkap.
 ```
+
+## Menerbitkan pembaruan
+
+1. Edit sumber instruksi di `skills/`.
+2. Naikkan `version` pada `.claude-plugin/plugin.json` dan `.codex-plugin/plugin.json`
+   ke versi SemVer yang sama, misalnya `0.2.1`.
+3. Validasi manifest dan uji pemanggilan pada host yang tersedia.
+4. Commit dan push perubahan ke branch default repository.
+5. Bagikan nomor versi dan instruksi update untuk masing-masing alat di atas.
+
+Pertahankan nama plugin dan marketplace agar pengguna tidak perlu mendaftar ulang.
+Detail katalog dan pengujian lokal tersedia di [panduan integrasi](integrations/README.md).
 
 ## Artefak dan Stitch
 

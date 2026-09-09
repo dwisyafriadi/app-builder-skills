@@ -4,8 +4,8 @@ Sumber instruksi tetap di `skills/`. Manifest Claude Code dan Codex menunjuk
 folder yang sama. Paket ini memakai root repository sebagai root plugin;
 tidak perlu menggandakan skill ke folder plugin lain.
 
-Perintah GitHub di bawah berlaku setelah perubahan ini di-commit dan di-push
-ke `dwisyafriadi/ppob-skills-agent`. Memasang paket hanya membuat skill tersedia;
+Repository distribusi: `dwisyafriadi/app-builder-skills`.
+Memasang paket hanya membuat skill tersedia;
 pemilihan otomatis tetap bergantung pada host dan permintaan pengguna.
 
 ## Claude Code
@@ -13,7 +13,7 @@ pemilihan otomatis tetap bergantung pada host dan permintaan pengguna.
 Jalankan di Claude Code:
 
 ```text
-/plugin marketplace add dwisyafriadi/ppob-skills-agent
+/plugin marketplace add dwisyafriadi/app-builder-skills
 /plugin install app-builder-id@app-builder-id-marketplace
 ```
 
@@ -31,7 +31,7 @@ Untuk memperbarui:
 ```
 
 Mulai sesi baru setelah update. Untuk pengujian sebelum push, tambahkan marketplace
-dengan path absolut checkout ini sebagai pengganti `dwisyafriadi/ppob-skills-agent`.
+dengan path absolut checkout ini sebagai pengganti `dwisyafriadi/app-builder-skills`.
 Hindari memasang skill yang sama sekaligus melalui junction `.claude/skills` dan plugin.
 
 ## Codex
@@ -39,7 +39,7 @@ Hindari memasang skill yang sama sekaligus melalui junction `.claude/skills` dan
 Gunakan versi Codex yang menyediakan `codex plugin`:
 
 ```sh
-codex plugin marketplace add dwisyafriadi/ppob-skills-agent
+codex plugin marketplace add dwisyafriadi/app-builder-skills
 codex plugin add app-builder-id@app-builder-id-marketplace
 ```
 
@@ -69,13 +69,13 @@ bukan manifest plugin JavaScript/TypeScript.
 Clone satu kali ke lokasi tetap. PowerShell:
 
 ```powershell
-git clone https://github.com/dwisyafriadi/ppob-skills-agent.git "$HOME/app-builder-id"
+git clone https://github.com/dwisyafriadi/app-builder-skills.git "$HOME/app-builder-id"
 ```
 
 macOS/Linux:
 
 ```sh
-git clone https://github.com/dwisyafriadi/ppob-skills-agent.git ~/app-builder-id
+git clone https://github.com/dwisyafriadi/app-builder-skills.git ~/app-builder-id
 ```
 
 Gabungkan isi `integrations/opencode.json` ke konfigurasi global
