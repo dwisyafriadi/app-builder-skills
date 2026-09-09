@@ -1,27 +1,15 @@
 ---
 name: phase-3-frontend
-description: Route UI generation to Stitch AI or Tailwind fallback after features are approved
+description: Rancang atau ubah UI berdasarkan flow dan role menggunakan komponen repository existing atau eksplorasi desain Stitch bila diperlukan.
 ---
 
-# Phase 3 - Frontend Router
+# Router UI
 
-## Overview
+Baca scope, flow, sumber data, komponen, token desain, dan navigasi existing. Tidak perlu token FEATURES_APPROVED.
 
-Route to exactly one generator. Never invent features beyond `FEATURES_APPROVED`.
+- Pola existing cukup atau edit kecil: [frontend lokal](../phase-3b-frontend-tailwind/SKILL.md).
+- Eksplorasi desain dibutuhkan: [Stitch](../phase-3a-frontend-stitch/SKILL.md) jika capability tersedia.
+- Stitch tidak tersedia: siapkan brief dan nyatakan belum digenerasikan. Jika build diminta tanpa kewajiban Stitch, lanjutkan UI lokal. Jika hasil wajib dari Stitch, tandai bagian itu blocked dan kerjakan bagian independen.
+- Jangan menambahkan fitur yang muncul dari generator di luar scope.
 
-## Routing
-
-1. If the harness has a Google Stitch UI-generation capability, use skill `phase-3a-frontend-stitch`. Setup: read [mcp-stitch.md](../app-builder-id/references/mcp-stitch.md).
-2. Otherwise use skill `phase-3b-frontend-tailwind`. Tell user one line: `Stitch tidak terdeteksi, pakai fallback Tailwind.` Continue, do not block.
-
-## Rules
-
-- 5 pages max for v1. No full admin dashboard in this phase.
-- Bahasa UI: Indonesia.
-- All money with `Intl.NumberFormat('id-ID')`.
-
-## Verification
-
-- [ ] Every Phase 2 menu has a page
-- [ ] Mobile 360px no overflow
-- [ ] `npm run dev` runs without Stitch
+Cakup navigasi, tindakan, role, loading/kosong/error/sukses relevan, responsive, label input, keyboard, feedback validasi. Bahasa/locale mengikuti aplikasi. Cocokkan layar dengan flow/data. Mockup bukan bukti UI berfungsi.

@@ -1,22 +1,24 @@
-# Nambah tipe aplikasi baru
+# Mengembangkan skill pack
 
-Tipe sekarang: `ppob-topup`, `kasir-pos`, `lms`, `marketplace`, `saas-crud`.
+Pertahankan satu pengarah adaptif dan phase yang bisa dipanggil langsung. Nama phase existing dipertahankan; jangan menambah skill hanya untuk satu contoh aplikasi.
 
-## Minimal (wajib)
+## Aturan perubahan
+- Deskripsi menjelaskan kapan dipakai; detail kondisional berada di references.
+- Baca konteks sebelum bertanya; tidak ada gate per phase atau batas revisi.
+- Planning-only tidak berubah menjadi build tanpa diminta.
+- Stack, UI, dan schema existing dipertahankan kecuali scope mengubahnya.
+- Flow dan ERD menggunakan Mermaid; aturan bisnis di luar diagram tetap eksplisit.
+- Referensi domain adalah contoh, bukan source of truth proyek pengguna.
+- Deteksi capability aktual; jangan mengarang nama tool, respons, atau konfigurasi konektor.
+- Dokumen progress hanya jika membantu pekerjaan lintas tahap.
+- Bug kecil tidak dipaksa menjalani seluruh pipeline.
+- Klaim selesai membutuhkan bukti sesuai perubahan.
 
-Tambahkan baris di Known Map `skills/phase-1-discovery/SKILL.md`:
-- Tipe + referensi contoh + **entitas inti**. Entitas inti yang dipakai Phase-2 (non-PPOB) dan Phase-4 untuk bikin skema dari nol.
+## Sebelum mengirim perubahan
+1. Periksa frontmatter name/description dan semua link relatif.
+2. Jalankan validator skill jika tersedia.
+3. Jalankan skenario relevan dari [evals/scenarios.md](evals/scenarios.md) dalam workspace terisolasi.
+4. Uji installer untuk target baru, pemanggilan ulang, dan konflik existing.
+5. Laporkan tes aktual, batas lingkungan, dan bagian yang belum diuji.
 
-## Opsional (canned, kalau mau template siap-pakai)
-
-Kalau tipe sering diminta dan mau template default seperti PPOB:
-
-1. `skills/app-builder-id/references/feature-map-<tipe>.md` — proposal P0/P1. Header tulis: gate & approval dipegang `phase-2`, file ini cuma isi.
-2. `skills/app-builder-id/references/db-arch-<tipe>.md` — DBML + Prisma + Mermaid + arsitektur.
-3. Arahkan `phase-2-features` step 2 & `phase-4-database`/`phase-5-scaffolding` ke file baru itu (sekarang keras ke `-ppob`).
-
-## Yang TIDAK boleh diubah
-
-- **Gate** (`OK lanjut / Tambah:`) — satu-satunya di `phase-2-features` step 4–6.
-- **Deteksi capability** — jangan pernah tulis nama tool exact di body skill.
-- **Source of truth dobel** — DBML/fitur jangan di-inline di SKILL.md kalau sudah ada di references.
+Jangan menambahkan transcript yang mengandung secret atau data pengguna. Evaluasi perilaku mengukur tindakan/artefak, bukan kesamaan kata dengan template.

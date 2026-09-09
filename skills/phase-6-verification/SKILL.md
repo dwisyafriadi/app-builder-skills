@@ -1,36 +1,22 @@
 ---
 name: phase-6-verification
-description: Run build, type, and DB checks and confirm the app boots before declaring scaffolding done
+description: Verifikasi aplikasi, fitur, atau bug terhadap kriteria penerimaan dan stack aktual sebelum menyatakan pekerjaan selesai.
 ---
 
-# Phase 6 - Verification
+# Verifikasi dengan bukti
 
-## Overview
+Pilih pemeriksaan dari manifest, CI, dan area perubahan. Jangan memaksa TypeScript/Prisma pada stack lain atau memasang dependency berulang tanpa kebutuhan.
 
-Checks that must pass before you say `Selesai`. Never skip. If a check fails, fix the cause, re-run, then continue.
+| Perubahan | Bukti |
+|---|---|
+| Aplikasi baru / fitur lintas lapisan | Build/check relevan dan flow input sampai hasil |
+| Bug | Reproduksi sebelum jika memungkinkan, hasil sesudah, regresi terkait |
+| UI | Tindakan, state, navigasi, aksesibilitas, responsive relevan |
+| Schema / akses | Validasi schema/migration di lingkungan sesuai, aturan data, role |
+| Edit kecil | Pemeriksaan terarah tanpa suite baru yang tidak berguna |
 
-## Checklist
+Cek kegagalan penting sesuai domain: input invalid, akses ditolak, konflik state/concurrency, kegagalan layanan. HTTP 200/server boot saja tidak membuktikan flow bisnis.
 
-Run each. If one fails, STOP, fix, re-run from the failure.
+Jika cek gagal, cari penyebab, perbaiki, ulangi area terdampak. Bedakan baseline dan regresi. Jika lingkungan menghalangi, catat perintah/error/dampak serta cek yang belum dilakukan; jangan ubah menjadi pass.
 
-- [ ] `npx tsc --noEmit` -> exit 0
-- [ ] `npx prisma validate` -> exit 0
-- [ ] `npm install` completes
-- [ ] `npm run dev` boots (hit `/` returns 200)
-- [ ] `.env.example` exists, `.env` not committed
-- [ ] `lib/provider.ts` has stub signature: no real gateway key in code
-
-## Output on pass
-
-```md
-## Selesai v1 - verified
-tsc: pass | prisma: pass | npm run dev: 200 OK
-```
-
-## Output on fail
-
-```md
-## Blocker: [which check failed]
-Error: [first line]
-Fix: [one-line cause] lalu ulangi verification.
-```
+Laporan: hasil sesuai scope, perintah/langkah cek dan hasil aktual, keterbatasan/mock/integrasi belum diuji, cara menjalankan jika aplikasi baru atau berubah. Verified hanya untuk bagian yang memiliki bukti; lokal bukan deployment.

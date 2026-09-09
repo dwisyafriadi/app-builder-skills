@@ -1,30 +1,20 @@
 ---
 name: phase-4-database
-description: Produce DB schema, checkout/payment flowchart, and 1-page architecture after UI is approved
+description: Rancang atau perbarui flow dan ERD Mermaid, aturan data, serta arsitektur minimal saat alur, penyimpanan, atau kontrak aplikasi berubah.
 ---
 
-# Phase 4 - DB + Flowchart + Arsitektur
+# Flow, data, dan arsitektur
 
-## Overview
+Ambil scope dari permintaan/konteks, tanpa prasyarat UI disetujui. Pada aplikasi baru, model awal sebelum UI dan selaraskan sesudahnya.
 
-Produce 3 artifacts: DBML (dbdiagram.io), Mermaid (mermaid.live), architecture doc. Keep DB minimal for v1.
+1. Buat fenced Mermaid flowchart: aktor, keputusan, hasil sukses, kegagalan penting, transisi status.
+2. Baca schema/migration existing. Buat fenced Mermaid erDiagram untuk data relasional dengan tipe, PK/FK, kardinalitas, dan optionality. DBML hanya jika diminta.
+3. Jelaskan aturan di luar ERD: kepemilikan, validasi, uniqueness, penghapusan, status valid, transaksi/concurrency relevan.
+4. Arsitektur mengikuti stack existing. Proyek baru memakai struktur sederhana; queue/cache/service terpisah hanya jika kebutuhan membenarkan.
+5. Tetapkan kontrak input/output/error/akses sebelum delegasi. Setelah UI, selaraskan field dan tindakan.
+6. Existing: delta schema serta rencana migration/backfill jika perlu. Jangan reset data demi diagram.
+7. Cocokkan diagram dengan schema final. Render/parse jika tool tersedia; jika hanya pemeriksaan manual, nyatakan batasnya.
 
-## Steps
+Gunakan tipe uang sesuai currency/domain; hindari float untuk nominal finansial. Tanpa database relasional, jelaskan model penyimpanan aktual tanpa memaksakan tabel.
 
-1. Check the type classified in Phase 1. If it is NOT `ppob-topup`, the reference file schema does NOT apply: generate DBML + Mermaid fresh from that type's entity list (Phase 1 Known Map). Never copy PPOB tables onto a POS/LMS/marketplace app.
-2. If it IS `ppob-topup`, read the single source of truth: `../app-builder-id/references/db-arch-ppob.md` (full DBML + Prisma + Mermaid + architecture + API contract). Present its content, adjusted to the approved features.
-3. Present to user: DBML, Mermaid flowchart, 1-page architecture.
-4. Money as integer IDR, never float.
-
-## Notes (already enforced in the reference file)
-
-- `orders.user_id` nullable FK to `users` (guest checkout).
-- `orders.expires_at` for 15min pending auto-expire.
-- `payments.gateway_ref` unique -> webhook idempotency.
-- `orders.status`, `payments.method` stay as strings in v1.
-- P1 tables (wallet, voucher) -> comment `// v2`, do not create.
-
-## Output
-
-Show the artifacts from the reference file, then:
-> Lanjut ke Phase 5? (OK / revisi skema)
+PPOB saja: [catatan domain](../app-builder-id/references/db-arch-ppob.md).

@@ -1,42 +1,18 @@
 ---
 name: phase-2-features
-description: Turn app discovery into P0/P1 feature table and get user sign-off before any UI or DB work
+description: Susun atau revisi scope MVP, menu per role, flow pengguna, dan kriteria penerimaan; gunakan delta untuk fitur dalam repository existing.
 ---
 
-# Phase 2 - Feature Planning + Approval Gate
+# Scope dan menu
 
-## Overview
+Mulai dari hasil pengguna lalu turunkan menu. Gunakan discovery atau baca area terkait jika dipanggil langsung.
 
-Turn discovery into feature table. MUST stop for user approval. No UI/DB code before OK.
+- Tabel: ID fitur, pengguna/role, menu/route, tindakan, prioritas, kriteria penerimaan yang dapat diamati.
+- Pisahkan kebutuhan rilis dan yang ditunda berdasarkan tujuan. Jangan memaksakan batas jumlah fitur/halaman.
+- Nyatakan hak akses dan aturan bisnis yang mengubah perilaku.
+- Fitur existing: tampilkan sebelum/sesudah; jangan merancang ulang seluruh aplikasi.
+- PPOB saja: [contoh fitur](../app-builder-id/references/feature-map-ppob.md), bukan daftar wajib.
+- Catat asumsi mudah dibalik; tanyakan keputusan produk material setelah konteks diperiksa.
+- Tidak ada token persetujuan atau batas revisi wajib. Hormati planning-only; lanjutkan implementasi jika sudah diminta.
 
-Feature content lives in `../app-builder-id/references/feature-map-ppob.md` (PPOB). This skill owns the gate only; never re-specify approved features inline here.
-
-## Steps
-
-1. Group features: Auth, Katalog, Transaksi, Notifikasi, Admin, Tambahan.
-2. PPOB: present the canned P0/P1 proposal from `feature-map-ppob.md` verbatim (its P0 is the approval target). Non-PPOB: build the table from the Phase 1 entity list, same grouping.
-3. Enforce scope: if P0 has more than 7 items, force the user to cut to 7 before approving.
-4. End with the exact gate below. STOP. Wait for user reply. Do not proceed automatically.
-> "Fitur di atas sudah OK? Jawab: `OK lanjut` untuk ke UI, atau `Tambah: ...` untuk revisi."
-5. If user says `Tambah: X`, revise the presented proposal, then ask the gate again. PPOB revision mapping (pulsa -> kategori `Pulsa & PPOB` + produk + field `nomor_tujuan`, dst) is in the reference file. Max 3 revisions; on the 3rd, lock the latest P0 and defer the rest to P1.
-6. If user says `OK lanjut`, output `FEATURES_APPROVED: <the approved P0>` and proceed to Phase 3.
-
-## Output Example
-
-```md
-## Usulan Fitur PPOB
-1. Auth: Login, Daftar, Guest [..]
-2. Katalog: Game, Akun, Voucher, Notifikasi, Search [..]
-3. Transaksi: ...
-Jawab: OK lanjut / Tambah: ...
-```
-
-## Red Flags - STOP
-
-- User belum bilang OK tapi mau lanjut ke UI -> kembali ke gate.
-- Menambah 10+ fitur sekaligus tanpa prioritas -> paksa pilih P0 (wajib rilis) vs P1 (nanti).
-
-## Common Mistakes
-
-- Fitur generik `CRUD user` tanpa field jelas -> tulis field: `users(id, phone, email)`.
-- Lupa payment method Indonesia: QRIS, VA, E-wallet, Alfamart.
+Aplikasi baru lanjut ke [flow dan data](../phase-4-database/SKILL.md), kemudian UI. Existing hanya tahap terdampak.

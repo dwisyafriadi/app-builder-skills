@@ -1,50 +1,97 @@
-# app-builder-id — skill pack pembuat aplikasi Indonesia
+# App Builder ID
 
-Skill pack portabel (Claude Code, Codex, OpenClaw/Hermes) untuk membuat aplikasi ala toko Indonesia: PPOB topup, kasir/POS, LMS, marketplace. Murni markdown — tiap phase = satu folder berisi `SKILL.md`, tanpa runtime khusus agent.
+Skill pack berbahasa Indonesia untuk membangun MVP, menambah fitur, memperbaiki bug, dan mengubah aplikasi existing. Satu pintu masuk: `app-builder-id`. Baca konteks dahulu, tanyakan keputusan penting saja, lalu jalankan tahap sesuai dampak.
+
+## Cara kerja
+
+| Permintaan | Perilaku |
+|---|---|
+| Buat aplikasi baru | Pengguna/tujuan → menu → flow dan ERD Mermaid → UI → arsitektur final → flow lengkap → verifikasi |
+| Tambah wishlist | Baca repo → delta fitur → ubah data/UI yang relevan → implementasi → verifikasi |
+| Login gagal | Reproduksi → penyebab → perbaikan terarah → cek regresi |
+| Ganti label tombol | Baca → edit → cek terarah |
+| Buat plan saja | Hasilkan plan; tidak menulis implementasi |
+| Lanjutkan pekerjaan | Cocokkan progress dengan kode dan lanjutkan tugas yang belum selesai |
+
+Tidak ada gate "OK lanjut" setiap phase, batas revisi, stack wajib, atau paksaan Stitch untuk edit kecil. Keputusan material yang belum jelas tetap ditanyakan. Tindakan eksternal/destruktif mengikuti otorisasi yang berlaku.
 
 ## Struktur
 
-```
-skills/
-  app-builder-id/              urutan rekomendasi + shared references
-    references/                konten bersama: feature map, DB schema, MCP stitch
-  phase-1-discovery/           klasifikasi tipe + cari referensi clone
-  phase-2-features/            tabel P0/P1 + approval gate (pemilik gate)
-  phase-3-frontend/            router: ke Stitch atau Tailwind
-    phase-3a-frontend-stitch/  UI via Google Stitch MCP
-    phase-3b-frontend-tailwind/ UI fallback Next.js + Tailwind
-  phase-4-database/            DBML + flowchart + arsitektur
-  phase-5-scaffolding/         skeleton Next.js 15 + Prisma
-  phase-6-verification/        gate tsc + prisma + boot sebelum "Selesai"
-```
+Nama phase lama tetap tersedia agar pemanggilan existing tidak putus; angka bukan urutan wajib.
 
-## Aturan source-of-truth (jangan di-dobel)
+| Folder di skills/ | Fungsi |
+|---|---|
+| app-builder-id | Pengarah; referensi maintenance, artefak, delegasi |
+| phase-1-discovery | Konteks pengguna dan repository |
+| phase-2-features | Scope, menu/role, kriteria penerimaan |
+| phase-4-database | Flowchart Mermaid, ERD Mermaid, aturan data, arsitektur |
+| phase-3-frontend | Memilih desain existing atau Stitch |
+| phase-3a-frontend-stitch | Brief dan desain melalui capability Stitch |
+| phase-3b-frontend-tailwind | UI lokal mengikuti stack existing |
+| phase-5-scaffolding | Implementasi flow lengkap |
+| phase-6-verification | Bukti hasil sesuai scope dan stack |
 
-- **Fitur**: konten di `references/feature-map-ppob.md`; gate `OK lanjut` hanya hidup di `phase-2`.
-- **DB**: skema di `references/db-arch-ppob.md`; `phase-4`/`phase-5` baca file itu, tak ada DBML inline.
-- **Guard non-PPOB**: reference itu khusus PPOB. Type POS/LMS/marketplace bikin skema dari entity list Phase 1, jangan menyalin tabel PPOB.
-- **Deteksi capability, bukan nama tool**: portable lintas agent. Jangan tulis `mcp__…` / `webfetch` di body skill.
+Ini file instruksi, bukan runtime yang menjalankan dirinya sendiri. Semua folder perlu dipasang bersama karena link relatif antarskill.
 
-## Install — Claude Code (Windows)
+## Instalasi
+
+Windows, dari repository ini:
 
 ```powershell
 .\install.ps1
+# Default: junction semua skill ke .agents/skills dalam repository ini.
+# Pilih direktori yang dibaca host atau repository tujuan:
+.\install.ps1 -Destination 'E:\proyek-saya\.agents\skills'
+# Pratinjau tanpa menulis:
+.\install.ps1 -WhatIf
 ```
-Membuat junction `.claude/skills/<nama>` → `skills/<nama>`. Sesi baru, lalu uji (di bawah).
 
-## Install — agent lain (Codex, OpenClaw, Hermes, …)
+`install.bat` meneruskan argumen ke installer PowerShell.
 
-Copy **seluruh tree `skills/`** ke direktori skills agent tsb (bukan per-folder — link relatif antar folder patah kalau cuma satu yang di-copy). Lokasi direktori skill ikut dokumentasi masing-masing agent. Key API via env `STITCH_API_KEY`; jangan commit key.
+macOS/Linux:
 
-## Uji (sesi baru di folder ini)
+```bash
+bash install.sh
+# Atau lokasi skill yang dibaca host:
+bash install.sh /path/to/project/.agents/skills
+```
 
-1. `buatkan aplikasi PPOB seperti https://adstore.id/`
-   → Phase 1 klasifikasi `ppob-topup`, lalu Phase 2 P0/P1 + gate.
-   → balas `OK lanjut` → Phase 3. Tanpa Stitch MCP harus jatuh ke `phase-3b`.
-2. Balas `Tambah: token PLN` → proposal revisi + gate lagi (bukan langsung jalan).
-3. Ketik `buatkan DB nya` → Phase 4 DBML + Mermaid.
-4. Ketik `buatkan app kasir untuk toko sembako` → klasifikasi `kasir-pos`, DB **bukan** salinan PPOB.
-5. Ketik `buatkan app rental mobil` → tipe `other` → agent tanya URL referensi.
-6. Sampai scaffold → output wajib `Selesai v1 - verified` (fase 6).
+Installer tidak mengganti file/link berbeda yang sudah ada. Jika konflik, periksa tujuan dan selesaikan secara sadar. Junction/symlink membutuhkan source repository tetap berada di lokasinya; untuk distribusi mandiri, salin semua folder di skills/ bersama-sama.
 
-Nambah tipe baru? Lihat `CONTRIBUTING.md`.
+Pilih direktori discovery sesuai dokumentasi host. Setelah instalasi, buka sesi baru/reload sesuai host dan pastikan skill terlihat. Instalasi saja tidak menjamin pemilihan otomatis; kemampuan discovery dan invocation mengikuti host.
+
+Untuk pemanggilan eksplisit di host yang mendukung sintaks ini:
+
+```text
+$app-builder-id Tambahkan fitur wishlist mengikuti pola repository ini.
+```
+
+Jika host tidak menyediakan pemanggilan skill, minta AI membaca `skills/app-builder-id/SKILL.md` beserta referensi yang relevan.
+
+Instruksi opsional pada file proyek yang dibaca host:
+
+```markdown
+Untuk membangun aplikasi, menambah fitur, dan memperbaiki bug, gunakan
+app-builder-id sebagai pengarah jika tersedia. Baca konteks dahulu dan
+pilih tahap sesuai dampak. Perubahan kecil tidak memerlukan blueprint lengkap.
+```
+
+## Artefak dan Stitch
+
+Gunakan dokumentasi existing. Untuk pekerjaan besar tanpa dokumen, default:
+- docs/app/blueprint.md: scope, menu, flowchart, ERD, UI, kontrak, kriteria penerimaan.
+- docs/app/progress.md: keputusan, status tugas, dependensi, bukti pemeriksaan.
+
+Fenced Mermaid dapat dilihat pada viewer yang mendukung Mermaid. Diagram harus selaras dengan schema dan implementasi; diagram bukan migration.
+
+Stitch dipakai jika tersedia dan eksplorasi desain diperlukan. Tanpa konektor, hasilkan brief dan lanjutkan UI lokal jika scope mengizinkan. Jika hasil secara eksplisit wajib dari Stitch, laporkan bagian tersebut terblokir. Jangan mengklaim desain telah dibuat dari brief saja.
+
+Subagent hanya untuk tugas independen dengan kontrak dan pemilik file jelas; default awal maksimal dua pekerja. Tanpa subagent, alur tetap bisa dikerjakan berurutan.
+
+## Validasi kualitas
+
+Lihat [skenario evaluasi](evals/scenarios.md) dan [kontribusi](CONTRIBUTING.md). Validasi format tidak membuktikan skill otomatis terpicu atau aplikasi berhasil dibangun. Uji perilaku pada sesi host aktual dan catat pertanyaan, keberhasilan, waktu, rework, serta biaya.
+
+Referensi pendekatan:
+- [Superpowers](https://github.com/obra/superpowers): rencana, delegasi, review, verifikasi.
+- [Karpathy-inspired guidelines](https://github.com/multica-ai/andrej-karpathy-skills): kesederhanaan, perubahan terarah, tujuan terverifikasi.
